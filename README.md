@@ -2,6 +2,8 @@
 
 I have a Raspberry Pi Pico, I like it, this repository is where I keep my fun pico software. You are very welcome to use everything you find here, and contributions are welcome but this isn't my main occupation so response times may vary.
 
+If you're looking for a post on getting started, I wrote a [high level overview of the RPi setup process on my blog](https://lornajane.net/posts/2021/intro-to-rpi-pico-with-mini-memory-game).
+
 ## Demos
 
 Just one, so far: **mydemo.py** (naming things was difficult because I didn't know what I was building when I started. That's my excuse)
