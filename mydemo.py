@@ -6,6 +6,7 @@ import picokeypad as keypad
 keypad.init()
 keypad.set_brightness(1.0)
 game_in_progress = 0
+level = 0;
 
 # 16 keys:
 #   0   1   2   3
@@ -17,14 +18,30 @@ game_in_progress = 0
 red = [0x80, 0x00, 0x00]
 blue = [0x00, 0x00, 0x80]
 purple = [0x30, 0x00, 0xff]
+pink = [0x50, 0x10, 0x8f]
+yellow = [0x50, 0x50, 0x00]
+green = [0x10, 0xff, 0x00]
+teal = [0x00, 0x30, 0xff]
 
 ########### LEVELS ########
-# Level 1
-pattern = {
-            0: red,
+levels = {}
+
+levels[1] = {
+            9: red,
+            6: yellow,
+            }
+
+levels[2] = {
+            1: yellow,
+            7: teal,
+            8: green
+            }
+
+levels[3] = {
+            0: pink,
             2: blue,
             7: blue,
-            4: red,
+            4: pink,
             12: purple
             }
 
@@ -41,7 +58,6 @@ def draw_pattern(pattern):
     keypad.update()
 
 def won():
-    print("WOOOOOO")
     on = 1
 
     while True:
@@ -63,7 +79,7 @@ def won():
 
 ##### MAIN PROGRAM ###
 
-def init():
+def init(pattern):
     # draw pattern and wait a few seconds before the next step
     draw_pattern(pattern)
     time.sleep(3)
@@ -91,7 +107,11 @@ def init():
 while True:
     # initialise if appropriate
     if game_in_progress == 0:
-        current_lights = init()
+        level = level + 1
+        if level not in levels:
+            level = 1
+        winning_pattern = levels[level]
+        current_lights = init(winning_pattern)
         game_in_progress = 1
 
     pressed = []
@@ -133,6 +153,6 @@ while True:
     time.sleep(0.5)
 
     # check if we won (suspense intentional)
-    if current_lights == pattern:
+    if current_lights == winning_pattern:
         game_in_progress = 0
         won()
